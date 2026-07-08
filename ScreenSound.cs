@@ -1,5 +1,9 @@
 string greeting = "Hello! Welcome to Screen Sound App";
 
+List<string> registeredGroups = new List<string>();
+
+
+
 void ShowGreeting()
 {
   Console.WriteLine(@"
@@ -27,10 +31,10 @@ void Menu()
   switch (opcaoEscolhidaNumerica)
   {
     case 1:
-      Console.WriteLine();
+      RegisterGroup();
       break;
     case 2:
-      Console.WriteLine();
+      ListGroups();
       break;
     case 3:
       Console.WriteLine();
@@ -43,9 +47,39 @@ void Menu()
       break;
     default:
       Console.WriteLine("Opção inválida");
+      break;
   }
-
 }
 
-ShowGreeting();
-Menu();
+void RegisterGroup()
+{
+  Console.Clear();
+  Console.WriteLine("Registro de Bandas");
+  Console.WriteLine("Digite o nome da banda que você quer registrar: ");
+  string? groupName = Console.ReadLine();
+  
+  if (!string.IsNullOrWhiteSpace(groupName))
+  {
+    Console.WriteLine($"A banda {groupName} foi cadastrada com sucesso.");
+    registeredGroups.Add(groupName);  
+  } else if (registeredGroups.Contains(groupName))
+  {
+    Console.WriteLine($"A banda {groupName} já foi registrada.");
+  } else  {
+    Console.WriteLine("Digite um nome válido.");
+  }
+  
+  Menu();
+};
+
+void ListGroups()
+{
+  Console.WriteLine("\n Bandas registradas:");
+  for (int i = 0; i < registeredGroups.Count; i++)
+  {
+    Console.WriteLine($"\n Nome da banda: {registeredGroups[i]}");
+  }
+}
+
+  ShowGreeting();
+  Menu();
